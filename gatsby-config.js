@@ -1,28 +1,28 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Glass`,
+    title: `Pienteger Blog`,
     author: {
-      name: `Yinka Adedire`,
+      name: `Pienteger Team`,
       summary: `Self-taught front-end web dev. JAMStack.`,
     },
     openGraphImage: `open-graph-image.png`,
     description: `A minimal & beautiful gatsby personal blog starter with a nice glassmorphism UI.`,
-    siteUrl: `https://gatsbyglass.netlify.app`,
+    siteUrl: `https://blog.pienteger.com`,
     social: {
-      twitter: `yinkakun`,
+      twitter: `pienteger`,      
     },
     socialLinks: [
       {
-        name: "github",
-        url: "https://github.com",
+        name: "GitHub",
+        url: "https://github.com/pienteger",
       },
       {
-        name: "twitter",
-        url: "https://twitter.com",
+        name: "LinkedIn",
+        url: "https://www.linkedin.com/company/68650611/",
       },
       {
-        name: "instagram",
-        url: "https://instagram.com",
+        name: "Facebook",
+        url: "https://facebook.com/pienteger",
       },
     ],
   },

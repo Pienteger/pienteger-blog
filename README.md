@@ -1,39 +1,4 @@
-# Gatsby Starter Glass
-
-A Minimal & Beautiful Gatsby Personal Blog Starter With Nice Glassmorphism UI.
-
-[View Live Demo](https://gatsbyglass.netlify.app)
-
-![demo site screenshot](./screenshot.png)
-
-## Features
-
-* Fully responsive
-* SEO metadata and Open Graph tags
-* Maximized lighthouse score
-* Contact form with Netlify Form
-* Edit Content with Netlify CMS
-* Easy to deploy
-* Syntax highlighting via PrismJS
-
-## Local Install
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/yinkakun/gatsby-starter-glass
-
-# 2. Navigate into repository
-cd gatsby-starter-glass
-
-# 3. Install the dependencies
-yarn install
-
-# 4. Start the development server
-yarn start
-
-# 5. Start the build mode
-yarn  build
-```
+# Pienteger Blog
 
 ## Configuration
 
@@ -60,16 +25,6 @@ module.exports = {
 };
 ```
 
-## Deployment
-
-Netlify is a great way to easily deploy sites plus this starter uses Netlify Form for the Contact form.
-
-- Generate a new repo from this repo which will copy all files from this repo to your newly created repo.
-
-- Go to <https://app.netlify.com>. Once you’ve logged in, click the 'New site from Git' button on your dashboard and choose your newly created repo.
-
-- Follow the prompts, it will build and deploy the new site on Netlify, bringing you to the site dashboard when the build is complete.
-
 ## Manually Editing contents
 
 ### Blog Posts
@@ -78,9 +33,15 @@ Blog contents can be updated in markdown format at `content/blog`. Delete placeh
 
 ```md
 ---
-title: Hello World
-date: '2021-05-01'
-description: 'Hello World'
+title: Do you know anything about sensory deprivation tanks?
+date: 2021-02-02
+tags:
+  - stranger things
+  - tv series
+  - "2022"
+social_image: /media/rocket.jpg
+description: This is a custom description for SEO and Open Graph purposes. If
+  it's not provided, it defaults to auto-generated excerpts of the page content.
 ---
 
 This top portion is the beginning of the post and will show up as the excerpt on the homepage.
@@ -89,6 +50,14 @@ This top portion is the beginning of the post and will show up as the excerpt on
 ### Pages
 
 Homepage intro, Contact, and About page content can be updated in Markdown format at `content/pages`.
+
+```md
+---
+title: About Mee
+template: about-template
+profile_image: /media/profile-image.jpg
+---
+```
 
 # Editing Contents with Netlify CMS
 
@@ -104,9 +73,3 @@ You’ll need to set up Netlify’s Identity service to authorize users to log i
 - Now, go to to site-name.netlify.app/admin/, and login with your credentials.
 
 Once you are in your Netlify CMS, you can navigate to Posts and Pages. Here you will find a list of existing pages and posts.
-
-## Built with
-
-- Gatsby for Static Site Generation
-- Netlify CMS for content management
-- Styled Component for styling

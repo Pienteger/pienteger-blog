@@ -13,12 +13,12 @@ const HEADER_NAV_ITEM = [
   },
   {
     label: "About",
-    url: "/about",
+    url: "https://pienteger.com/About",
     isExternal: false,
   },
   {
     label: "Contact",
-    url: "/contact",
+    url: "https://pienteger.com/Contact",
     isExternal: false,
   },
 ];
