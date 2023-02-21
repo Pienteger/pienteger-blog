@@ -3,10 +3,10 @@ module.exports = {
     title: `Pienteger Blog`,
     author: {
       name: `Pienteger Team`,
-      summary: `Self-taught front-end web dev. JAMStack.`,
+      summary: `who lives and works in Rajshahi building useful things.`,
     },
     openGraphImage: `open-graph-image.png`,
-    description: `A minimal & beautiful gatsby personal blog starter with a nice glassmorphism UI.`,
+    description: `Get the latest information, insights, announcements, and news from Pienteger.`,
     siteUrl: `https://blog.pienteger.com`,
     social: {
       twitter: `pienteger`,      

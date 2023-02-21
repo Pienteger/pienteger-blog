@@ -10,7 +10,7 @@ code[class*="language-"],
 pre[class*="language-"] {
 	color: #e3eaf2;
 	background: none;
-	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+	font-family: 'Cascadia Code', Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
@@ -24,6 +24,10 @@ pre[class*="language-"] {
 	-moz-hyphens: none;
 	-ms-hyphens: none;
 	hyphens: none;
+}
+
+code[class*="language-"] > span[class*="token-"], pre[class*="language-"] > span[class*="token-"] {
+	color: inherit;
 }
 
 pre[class*="language-"]::-moz-selection,

@@ -1,8 +1,8 @@
 ---
 template: "index-template"
-title: "Gatsby Starter Glass"
+title: "Start Page"
 ---
 
-# Hello World
+# Pienteger Blog
 
-A minimal & beautiful gatsby personal blog starter with nice glassmorphism UI.
+Get the latest information, insights, announcements, and news from Microsoft.
