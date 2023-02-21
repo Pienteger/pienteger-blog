@@ -82,16 +82,6 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-netlify-cms",
-      options: {
-        modulePath: `${__dirname}/src/netlify-cms/index.js`,
-        enableIdentityWidget: true,
-        publicPath: "admin",
-        htmlTitle: "Content Manager",
-        includeRobots: false,
-      },
-    },
-    {
       resolve: `gatsby-plugin-feed`,
       options: {
         query: `
