@@ -45,8 +45,6 @@ Now, publish the app by running the following command and copy the ASP.NET Core 
 dotnet publish --configuration Release
 ```
 
-
-
 ### Test the app
 
 - From the command line, run the app: `dotnet <app_assembly>.dll`.
@@ -67,3 +65,124 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 app.UseAuthentication();
 ```
+
+## Install NGINX
+
+Nginx is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache. Most importantly, it is free and open source. To install NGINX on your server, run the following command:
+
+```bash
+sudo apt update
+sudo apt install nginx
+```
+
+If a W: GPG error: <https://nginx.org/packages/ubuntu> focal InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY $key is encountered during the NGINX repository update, execute the following:
+
+```bash
+## Replace $key with the corresponding $key from your GPG error.
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $key
+sudo apt update
+sudo apt install nginx
+```
+
+Now, since Nginx was installed for the first time, explicitly start it by running:
+
+```bash
+sudo systemctl start nginx
+sudo systemctl status nginx # To check if the service is running
+```
+
+## Configure NGINX
+
+To configure Nginx as a reverse proxy to forward HTTP requests to your ASP.NET Core app, modify `/etc/nginx/sites-available/default`. Open it in a text editor, and replace the contents with the following snippet:
+
+```text
+server {
+    listen        80;
+    server_name   example.com *.example.com;
+    location / {
+        proxy_pass         http://127.0.0.1:5000;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection keep-alive;
+        proxy_set_header   Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+> If your application is leveraging SignalR, please read the [Official Documentation](https://learn.microsoft.com/en-us/aspnet/core/signalr/scale?view=aspnetcore-6.0#linux-with-nginx) for more additional configuration.
+
+Once the Nginx configuration is established, run `sudo nginx -t` to verify the syntax of the configuration files. If the configuration file test is successful, force Nginx to pick up the changes by running sudo `nginx -s reload`.
+
+Now check if the app can be run the server:
+
+- Navigate to the app's directory.
+- Run the app: dotnet <app_assembly.dll>, where app_assembly.dll is the assembly file name of the app.
+- Run `curl http://localhost:5000` to verify the app works locally.
+- Go to the browser and navigate to `http://<serveraddress>:<port>` to verify the app works across the internet.
+
+> If the app runs on the server but fails to respond over the internet, check the server's firewall and confirm port 80 is open.
+
+When done testing the app, shut down the app with <kbd>Ctrl+C</kbd> (Windows) or <kbd>⌘+C</kbd> (macOS) at the command prompt.
+
+## Create a systemd service
+
+Create a new file called `nishadolapp.service` under the `/etc/systemd/system/` directory and add the following content:
+
+```bash
+[Unit]
+Description= Sample ASP.NET Core app running on Ubuntu 20.04
+
+[Service]
+WorkingDirectory=<app_directory>
+ExecStart=/usr/bin/dotnet <app_directory>/<assembly>.dll --urls=http://localhost:port/
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=nishadolapp
+User=root
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Now, enable and start the service by running the following command:
+
+```bash
+sudo systemctl enable nishadolapp.service
+sudo systemctl start nishadolapp.service
+```
+
+If you redeploy the app, you need to restart the service by running the following command:
+
+```bash
+sudo systemctl restart nishadolapp.service
+```
+
+If you want to stop the service, run the following command:
+
+```bash
+sudo systemctl stop nishadolapp.service
+```
+
+To check if the service is running, run the following command:
+
+```bash
+sudo systemctl status nishadolapp.service
+```
+
+If you see any error, you can check the logs by running the following command:
+
+```bash
+sudo journalctl -fu nishadolapp.service
+## sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-10-18 04:00" 
+```
+
+## Conclusion
+
+In this article, you learned how to deploy an ASP.NET Core app to a Linux server. You also learned how to configure NGINX as a reverse proxy to forward HTTP requests to your ASP.NET Core app. Finally, you learned how to create a systemd service to run the app as a background process.
